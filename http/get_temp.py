@@ -1,5 +1,3 @@
-#app.py
-
 from flask import Flask, request #import main Flask class and request object
 import subprocess
 
