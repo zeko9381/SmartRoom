@@ -1,8 +1,8 @@
 from pyA20.gpio import gpio
 from pyA20.gpio import port
-from pyA20.gpio import connector
-from orangepwm import *
-import time
+#from pyA20.gpio import connector
+#from orangepwm import *
+from time import sleep
 
 gpio.init() #Initialize module. Always called first
 
@@ -20,9 +20,8 @@ while True:
 		gpio.output(port.PA12, gpio.HIGH)
 		#pwm.start(15)
 		print("HIGH")
-		time.sleep(0.5)
 	else:
 		gpio.output(port.PA12, gpio.LOW)
 		#pwm.stop()
 		print("LOW")
-		time.sleep(0.5)
+#	sleep(0.08)
