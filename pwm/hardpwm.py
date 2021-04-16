@@ -50,12 +50,7 @@ try:
                     duty_cycle = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "w")
                     duty_cycle.write(str(i))
                     duty_cycle.close()
-        
-        #if (state == 1):
-            #print ("LOW")
-        #else:
-            #print ("HIGH")
-        #sleep(0.1)
+                    
 except KeyboardInterrupt:
     print("Exiting...")
     
