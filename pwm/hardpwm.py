@@ -5,10 +5,10 @@ from time import sleep
 gpio.init() #Initialize module. Always called first
 
 #Konfiguracija
-switch_port = port.PA12
+switch_port = port.PA10
 
 gpio.setcfg(switch_port, gpio.INPUT)
-gpio.pullup(switch_port, gpio.PULLUP)
+#gpio.pullup(switch_port, 0)
 
 #PWM setup
 export = open("/sys/class/pwm/pwmchip0/export", "w")
@@ -32,24 +32,24 @@ last_state = state
 
 try:
     while True:
-
         state = gpio.input(switch_port)
-
-        if (state != last_state):
-            last_state = state
-            if state == 0:
+        
+        if state != last_state:
+            if state == 1:
                 print("HIGH")
-                for i in range(0, 100000, 100):
+                for i in reversed(range(0, 200000, 100)):
+                    duty_cycle = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "w")
+                    duty_cycle.write(str(i))
+                    duty_cycle.close()
+                        
+            elif state == 0:
+                print("LOW")
+                for i in range(0, 200000, 100):
                     duty_cycle = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "w")
                     duty_cycle.write(str(i))
                     duty_cycle.close()
                     
-            if state == 1:
-                print("LOW")
-                for i in reversed(range(0, 100000, 100)):
-                    duty_cycle = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "w")
-                    duty_cycle.write(str(i))
-                    duty_cycle.close()
+            last_state = state
                     
 except KeyboardInterrupt:
     print("Exiting...")

@@ -4,7 +4,7 @@ from time import sleep
 
 gpio.init() #Initialize module. Always called first
 
-button = port.PA10
+button = port.PA12
 
 gpio.setcfg(button, gpio.INPUT)
 #gpio.pullup(button, 0)
