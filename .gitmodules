@@ -1,0 +1,3 @@
+[submodule "orangepi_zero_gpio"]
+	path = orangepi_zero_gpio
+	url = https://github.com/nvl1109/orangepi_zero_gpio
