@@ -33,27 +33,26 @@ last_state = state
 try:
     while True:
         state = gpio.input(switch_port)
-        
+
         if state != last_state:
             if state == 1:
-                print("HIGH")
                 for i in reversed(range(0, 200000, 100)):
                     duty_cycle = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "w")
                     duty_cycle.write(str(i))
                     duty_cycle.close()
-                        
+
             elif state == 0:
-                print("LOW")
                 for i in range(0, 200000, 100):
                     duty_cycle = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", "w")
                     duty_cycle.write(str(i))
                     duty_cycle.close()
-                    
-            last_state = state
-                    
+
+        last_state = state
+        sleep(0.001) # Without this, the CPU gets pinned to 100%
+
 except KeyboardInterrupt:
     print("Exiting...")
-    
+
     enable = open("/sys/class/pwm/pwmchip0/pwm0/enable", "w")
     enable.write("0")
     enable.close()
@@ -61,5 +60,5 @@ except KeyboardInterrupt:
     unexport = open("/sys/class/pwm/pwmchip0/unexport", "w")
     unexport.write("0")
     unexport.close()
-    
+
     print("Exited!")
