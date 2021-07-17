@@ -4,11 +4,7 @@
 #define lightOutputPin PD4
 #define doorOutputPin PD5
 
-// Outputs
-int lightOutputState = LOW;
-int doorOutputState = LOW;
-
-// Inputs
+// Previous sensor states
 int lastLightState = LOW;
 int lastDoorState = LOW;
 
@@ -22,8 +18,6 @@ void setup() {
   pinMode(doorSensorPin, INPUT_PULLUP);
   pinMode(lightOutputPin, OUTPUT);
   pinMode(doorOutputPin, OUTPUT);
-
-  digitalWrite(lightOutputPin, LOW);
 }
 
 void loop() {
@@ -34,14 +28,14 @@ void loop() {
   // Checks if the state changed from the last cycle
   if(lightState != lastLightState)
     lightLastDebounceTime = millis();
-  if(doorState != lastLightState)
+  if(doorState != lastDoorState)
     doorLastDebounceTime = millis();
 
   // If the input states lasted longer than the debounce delay, they write to the output pins
   if((millis() - lightLastDebounceTime) > debounceDelay)
     digitalWrite(lightOutputPin, lightState);
   if((millis() - doorLastDebounceTime) > debounceDelay)
-     digitalWrite(doorOutputPin, doorState);  
+    digitalWrite(doorOutputPin, doorState);  
 
   // Saves input states to compare if it changes in the next cycle
   lastLightState = lightState;
