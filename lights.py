@@ -11,7 +11,6 @@ def light_on(fade, fade_time = 1):
             light.value = i / 255
             sleep(fade_time / 255)
             print(light.value)
-        print("ON")
     else:
         light.value = 1
     
