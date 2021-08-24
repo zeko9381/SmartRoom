@@ -11,7 +11,7 @@ light_switch_pin = 14
 pwm_frequency = 30000 # Must be this high, otherwise the interference is audible on the speaker
 light_pin = 18
 
-light_switch = Button(light_switch_pin, bounce_time=0.01)
+light_switch = Button(light_switch_pin, bounce_time=0.1)
 
 def light_on(fade = True):
     if fade:
